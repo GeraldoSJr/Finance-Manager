@@ -4,7 +4,8 @@ import json
 from django.http import JsonResponse
 from django.contrib.auth.models import User
 from validate_email import validate_email
-from django.contrib import messages
+from django.contrib import messages, auth
+from django.shortcuts import redirect
 
 
 class RegistrationView(View):
@@ -66,6 +67,24 @@ class LoginView(View):
     def get(self, request):
         return render(request, 'authentication/login.html')
 
+    def post(self, request):
+        username = request.POST['username']
+        password = request.POST['password']
+
+        if username and password:
+            user = auth.authenticate(username=username, password=password)
+            if user:
+                auth.login(request, user)
+                messages.success(request, 'Welcome: ' + user.username)
+                return redirect('expenses')
+
+            else:
+                messages.error(request, 'Your username or password is wrong, try again or create an account')
+                return render(request, 'authentication/login.html')
+        else:
+            messages.error(request, 'Make sure to fill all fields')
+            return render(request, 'authentication/login.html')
+
 
 class ResetPasswordView(View):
     def get(self, request):
@@ -75,3 +94,10 @@ class ResetPasswordView(View):
 class NewPasswordView(View):
     def get(self, request):
         return render(request, 'authentication/set-newpassword.html')
+
+
+class LogoutView(View):
+    def post(self, request):
+        auth.logout(request)
+        messages.success(request, "You've been logged out")
+        return redirect('login')

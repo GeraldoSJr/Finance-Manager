@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-    <h1>add expenses</h1>
+<div class="conteiner">
+    {% include 'partials/_messages.html' %}
+    <h1>Add expenses</h1>
 
     <ul class="list-group">
         <li class="list-group-item">item</li>
@@ -16,4 +17,5 @@
         <li class="list-group-item">item</li>
         <li class="list-group-item">item</li>
     </ul>
-{% endblock%}
+</div>
+{% endblock content %}
