@@ -7,7 +7,11 @@ from django.utils.timezone import now
 
 @login_required(login_url='auth/login/')
 def index(request):
-    return render(request, 'expenses/index.html')
+    expense = Expense.objects.filter(owner=request.user)
+    context = {
+        'expense': expense
+    }
+    return render(request, 'expenses/index.html', context)
 
 
 def add_expenses(request):
