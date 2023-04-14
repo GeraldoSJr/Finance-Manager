@@ -15,13 +15,6 @@
                 <a href="{% url 'add-expenses' %}" class="btn btn-primary"> Add expense</a>
             </div>
         </div>
-        <div class="container">
-            <ul class="list-group">
-                {% for exp in exps %}
-                    <li class="list-group-item">{{ exp }}</li>
-                {% endfor %}
-            </ul>
-        </div>
     </div>
     {% include 'partials/_messages.html' %}
 {% endblock content %}

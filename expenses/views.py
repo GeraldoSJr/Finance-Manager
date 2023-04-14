@@ -1,33 +1,40 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Category, Expense
 from django.contrib import messages
+from django.utils.timezone import now
 
 
 @login_required(login_url='auth/login/')
 def index(request):
-    exps = Expense.objects.all()
-    context = {
-        'expenses': exps
-    }
-    return render(request, 'expenses/index.html', context)
+    return render(request, 'expenses/index.html')
 
 
 def add_expenses(request):
     categories = Category.objects.all()
     context = {
-        'categories': categories
+        'categories': categories,
+        'values': request.POST
     }
+
+    if request.method == 'GET':
+        return render(request, 'expenses/add_expenses.html', context)
 
     if request.method == 'POST':
         amount = request.POST['amount']
-
+        description = request.POST['description']
+        if request.POST['expense_date'] != "":
+            date = request.POST['expense_date']
+        else:
+            date = now()
+        category = request.POST['category']
         if not amount:
             messages.error(request, 'Amount is required')
-        else:
-            messages.success(request, 'New expense added')
-        return render(request, 'expenses/add_expenses.html', context)
-    return render(request, 'expenses/add_expenses.html', context)
+
+        Expense.objects.create(owner=request.user, amount=amount, date=date, description=description, category=category)
+        messages.success(request, 'New expense added')
+
+        return redirect('expenses')
 
 
 
