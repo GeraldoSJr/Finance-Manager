@@ -102,7 +102,7 @@ def add_incomes(request):
 
 
 def delete_incomes(request, id):
-    income = Source.objects.get(pk=id)
+    income = Income.objects.get(pk=id)
     income.delete()
     messages.success(request, 'Income deleted')
     return redirect('incomes')
