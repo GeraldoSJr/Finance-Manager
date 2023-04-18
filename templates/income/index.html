@@ -13,7 +13,7 @@
                 </nav>
             </div>
             <div class="col-md-2 mt-1">
-                <a href="{% url 'add-income' %}" class="btn btn-primary"> Add income</a>
+                <a href="{% url 'add-incomes' %}" class="btn btn-primary"> Add income</a>
             </div>
         </div>
         <div class="container">
@@ -44,7 +44,7 @@
                     <td>{{ exp.source }}</td>
                     <td>{{ exp.description }}</td>
                     <td>{{ exp.date }}</td>
-                    <td><a href="{% url 'expense-edit' exp.id %}" class="btn btn-primary">Edit</a></td>
+                    <td><a href="{% url 'income-edit' exp.id %}" class="btn btn-primary">Edit</a></td>
                 </tr>
                 {% endfor %}
                 </tbody>
