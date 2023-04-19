@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from validate_email import validate_email
 from django.contrib import messages, auth
 from django.shortcuts import redirect
+from userpreferences.models import UserPreference
 
 
 class RegistrationView(View):
@@ -30,6 +31,7 @@ class RegistrationView(View):
             user = User.objects.create_user(username=username, email=email)
             user.set_password(password)
             user.save()
+            UserPreference.objects.create(user=user, currency='USD')
             messages.success(request, 'Account created successfully!')
             return render(request, 'authentication/register.html')
 
@@ -89,6 +91,8 @@ class LoginView(View):
 class ResetPasswordView(View):
     def get(self, request):
         return render(request, 'authentication/reset-password.html')
+    def post(self, request):
+        return
 
 
 class NewPasswordView(View):
