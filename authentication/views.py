@@ -33,7 +33,7 @@ class RegistrationView(View):
             user.save()
             UserPreference.objects.create(user=user, currency='USD')
             messages.success(request, 'Account created successfully!')
-            return render(request, 'authentication/register.html')
+            return redirect('expenses')
 
         return render(request, 'authentication/register.html')
 
@@ -86,18 +86,6 @@ class LoginView(View):
         else:
             messages.error(request, 'Make sure to fill all fields')
             return render(request, 'authentication/login.html')
-
-
-class ResetPasswordView(View):
-    def get(self, request):
-        return render(request, 'authentication/reset-password.html')
-    def post(self, request):
-        return
-
-
-class NewPasswordView(View):
-    def get(self, request):
-        return render(request, 'authentication/set-newpassword.html')
 
 
 class LogoutView(View):

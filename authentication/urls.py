@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import RegistrationView, LoginView, NewPasswordView, ResetPasswordView, UsernameValidationView,\
+from .views import RegistrationView, LoginView, UsernameValidationView,\
     EmailValidationView, LogoutView
 from django.views.decorators.csrf import csrf_exempt
 
@@ -10,6 +10,4 @@ urlpatterns = [
     path('validate-email/', csrf_exempt(EmailValidationView.as_view()), name="validate-email"),
     path('login/', LoginView.as_view(), name="login"),
     path('logout/', LogoutView.as_view(), name="logout"),
-    path('reset-password/', ResetPasswordView.as_view(), name="reset-password"),
-    path('newpassword/', NewPasswordView.as_view(), name="newpassword"),
 ]
