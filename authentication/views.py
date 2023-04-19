@@ -14,8 +14,7 @@ class RegistrationView(View):
         return render(request, 'authentication/register.html')
 
     def post(self, request):
-        #Get the data
-
+        # Get the data
         username = request.POST['username']
         email = request.POST['email']
         password = request.POST['password']
