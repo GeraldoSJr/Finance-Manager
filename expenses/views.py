@@ -11,6 +11,7 @@ from django.http import JsonResponse
 from userpreferences.models import UserPreference
 import csv
 from django.http import HttpResponse
+import xlwt
 
 
 def search_expenses(request):
@@ -124,5 +125,33 @@ def export_csv(request):
 
     for expense in expenses:
         writer.writerow([expense.amount, expense.description, expense.category, expense.date])
+
+    return response
+
+
+def export_excel(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename=Expenses ' + str(datetime.datetime.now()) + '.xls'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Expenses')
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Amount', 'Description', 'Category', 'Date']
+    for col_num in range(len(columns)):
+        ws.write(row_num, col_num, columns[col_num], font_style)
+
+    font_style.font.bold = xlwt.XFStyle()
+
+    rows = Expense.objects.filter(owner=request.user).values_list('amount', 'description', 'category', 'date')
+
+    for row in rows:
+        row_num += 1
+
+        for col_num in range(len(row)):
+            ws.write(row_num, col_num, str(row[col_num]), font_style)
+    wb.save(response)
 
     return response

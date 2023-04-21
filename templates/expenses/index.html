@@ -20,7 +20,8 @@
         {% include 'partials/_messages.html' %}
         <div class="row">
             <div class="col-md-8">
-                <a class="btn btn-secondary" href="{% url 'export-csv' %}">Export CSV</a>
+                <a class="btn btn-primary mr-5" href="{% url 'export-excel' %}">Export Excel</a>
+                <a class="btn btn-primary ml-5" href="{% url 'export-csv' %}">Export CSV</a>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
@@ -46,7 +47,7 @@
                     <td>{{ exp.category }}</td>
                     <td>{{ exp.description }}</td>
                     <td>{{ exp.date }}</td>
-                    <td><a href="{% url 'expense-edit' exp.id %}" class="btn btn-primary">Edit</a></td>
+                    <td><a href="{% url 'expense-edit' exp.id %}" class="btn btn-outline-primary">Edit</a></td>
                 </tr>
                 {% endfor %}
                 </tbody>
