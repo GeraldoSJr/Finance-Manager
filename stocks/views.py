@@ -21,7 +21,7 @@ def search_stocks(request):
 
         stocks = Stock.objects.filter(amount__istartswith=search_str, owner=request.user) | \
                    Stock.objects.filter(date__istartswith=search_str, owner=request.user) | \
-                   Stock.objects.filter(description__icontains=search_str, owner=request.user)
+                   Stock.objects.filter(ticker__icontains=search_str, owner=request.user)
 
         data = stocks.values()
 
@@ -56,7 +56,7 @@ def stock_edit(request, id):
     if request.method == 'POST':
         amount = request.POST['amount']
 
-        description = request.POST['description']
+        ticker = request.POST['ticker']
         if request.POST['stock_date'] != "":
             date = request.POST['stock_date']
         else:
@@ -67,7 +67,7 @@ def stock_edit(request, id):
         stock.owner = request.user
         stock.amount = amount
         stock.date = date
-        stock.description = description
+        stock.ticker = ticker
 
         stock.save()
         messages.success(request, 'stock Updated')
@@ -81,7 +81,7 @@ def add_stocks(request):
 
     if request.method == 'POST':
         amount = request.POST['amount']
-        description = request.POST['description']
+        ticker = request.POST['ticker']
         if request.POST['stock_date'] != "":
             date = request.POST['stock_date']
         else:
@@ -89,7 +89,7 @@ def add_stocks(request):
         if not amount:
             messages.error(request, 'Amount is required')
 
-        Stock.objects.create(owner=request.user, amount=amount, date=date, description=description)
+        Stock.objects.create(owner=request.user, amount=amount, date=date, ticker=ticker)
         messages.success(request, 'New stock added')
 
         return redirect('stocks')
@@ -107,12 +107,12 @@ def export_csv(request):
     response['Content-Disposition'] = 'attachment; filename=stocks ' + str(datetime.datetime.now()) + '.csv'
 
     writer = csv.writer(response)
-    writer.writerow(['Amount', 'Description', 'Date'])
+    writer.writerow(['Amount', 'ticker', 'Date'])
 
     stocks = Stock.objects.filter(owner=request.user)
 
     for stock in stocks:
-        writer.writerow([stock.amount, stock.description, stock.date])
+        writer.writerow([stock.amount, stock.ticker, stock.date])
 
     return response
 
@@ -127,13 +127,13 @@ def export_excel(request):
     font_style = xlwt.XFStyle()
     font_style.font.bold = True
 
-    columns = ['Amount', 'Description', 'Date']
+    columns = ['Amount', 'ticker', 'Date']
     for col_num in range(len(columns)):
         ws.write(row_num, col_num, columns[col_num], font_style)
 
     font_style.font.bold = xlwt.XFStyle()
 
-    rows = Stock.objects.filter(owner=request.user).values_list('amount', 'description', 'date')
+    rows = Stock.objects.filter(owner=request.user).values_list('amount', 'ticker', 'date')
 
     for row in rows:
         row_num += 1

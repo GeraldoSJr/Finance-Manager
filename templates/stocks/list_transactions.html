@@ -34,8 +34,7 @@
                 <thead>
                 <tr>
                     <th>Amount | {{ currency }}</th>
-                    <th>Category</th>
-                    <th>Description</th>
+                    <th>ticker</th>
                     <th>Date</th>
                     <th></th>
                 </tr>
@@ -44,8 +43,7 @@
                 {% for exp in page_obj %}
                 <tr>
                     <td>{{ exp.amount }}</td>
-                    <td>{{ exp.category }}</td>
-                    <td>{{ exp.description }}</td>
+                    <td>{{ exp.ticker }}</td>
                     <td>{{ exp.date }}</td>
                     <td><a href="{% url 'transaction-edit' exp.id %}" class="btn btn-outline-primary">Edit</a></td>
                 </tr>
@@ -58,8 +56,7 @@
                 <thead>
                 <tr>
                     <th>Amount </th>
-                    <th>Category</th>
-                    <th>Description</th>
+                    <th>ticker</th>
                     <th>Date</th>
                     <th></th>
                 </tr>

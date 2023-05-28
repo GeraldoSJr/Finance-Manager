@@ -12,11 +12,11 @@
                 </nav>
             </div>
             <div class="col-md-2 mt-3">
-                <a href="{% url 'delete_transaction' expense.id %}" class="btn btn-danger btn-sm"> Delete</a>
+                <a href="{% url 'delete_transaction' stock.id %}" class="btn btn-danger btn-sm"> Delete</a>
             </div>
         </div>
     <div class="card">
-        <form action="{% url 'transaction-edit' expense.id %}" method="post">
+        <form action="{% url 'transaction-edit' stock.id %}" method="post">
             {% include 'partials/_messages.html' %}
             {% csrf_token %}
             <div class="card-body">
@@ -25,8 +25,8 @@
                     <input type="number" class="form-control form-control-sm" value="{{ values.amount }}" name="amount">
                 </div>
                 <div class="form-group">
-                    <label FOR="">Description</label>
-                    <input type="text" class="form-control form-control-sm" name="description" value="{{ values.description }}">
+                    <label FOR="">ticker</label>
+                    <input type="text" class="form-control form-control-sm" name="ticker" value="{{ values.ticker }}">
                 </div>
                 <div class="form-group">
                     <label FOR="">Category</label>
@@ -39,7 +39,7 @@
                 </div>
                 <div class="form-group">
                     <label FOR="">Date of Transaction</label>
-                    <input type="date" class="form-control form-control-sm" name="expense_date">
+                    <input type="date" class="form-control form-control-sm" name="stock_date">
                 </div>
                 <input type="submit" value="Save" class="btn btn-primary btn-primary-sm">
             </div>
