@@ -88,6 +88,7 @@ def add_stocks(request):
 
     if request.method == 'POST':
         amount = request.POST['amount']
+        price = request.POST['price']
         ticker = request.POST['ticker']
         if request.POST['stock_date'] != "":
             date = request.POST['stock_date']
@@ -96,7 +97,7 @@ def add_stocks(request):
         if not amount:
             messages.error(request, 'Amount is required')
 
-        Stock.objects.create(owner=request.user, amount=amount, date=date, ticker=ticker)
+        Stock.objects.create(owner=request.user, amount=amount, date=date, ticker=ticker, price=price)
         messages.success(request, 'New stock added')
 
         return redirect('stocks')

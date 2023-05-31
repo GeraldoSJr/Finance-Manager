@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 
 class Stock(models.Model):
     amount = models.FloatField()
+    price = models.FloatField()
     date = models.DateField(default=now)
     ticker = models.TextField()
     owner = models.ForeignKey(to=User, on_delete=models.CASCADE)
