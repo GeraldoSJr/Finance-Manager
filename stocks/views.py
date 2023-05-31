@@ -12,9 +12,10 @@ from userpreferences.models import UserPreference
 import csv
 from django.http import HttpResponse
 import xlwt
+from yahoo_fin.stock_info import *
 
 
-def search_stocks(request):
+def search_method(request):
 
     if request.method == 'POST':
         search_str = json.loads(request.body).get('searchText')
@@ -26,6 +27,12 @@ def search_stocks(request):
         data = stocks.values()
 
         return JsonResponse(list(data), safe=False)
+
+
+
+def search_stocks(request, ticker):
+    return render(request, )
+
 
 
 @login_required(login_url='auth/login/')

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<form action="{% url 'add-transaction' %}" method="post">
+    {% include 'partials/_messages.html' %}
+    {% csrf_token %}
+    <div class="card-body">
+        <div class="form-group">
+            <label FOR="">Stock</label>
+            <input type="text" class="form-control form-control-sm" value="{{ values }}" name="amount">
+        </div>
+        <input type="submit" value="Submit" class="btn btn-primary btn-primary-sm">
+    </div>
+</form>
