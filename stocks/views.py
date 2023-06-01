@@ -9,10 +9,11 @@ from userpreferences.models import UserPreference
 import csv
 from django.http import HttpResponse
 import xlwt
-from yahoo_fin.stock_info import *
 import os
 import json
 from django.conf import settings
+import datetime
+import requests
 
 
 def search_stocks(request):
@@ -108,14 +109,26 @@ def add_stocks(request):
 def search_stock_info(request):
     stock_data = []
     file_path = os.path.join(settings.BASE_DIR, 'stock-info.csv')
+    context = {
+        'stocks': stock_data
+    }
 
     with open(file_path, 'r') as file:
         csv_reader = csv.reader(file)
         for row in csv_reader:
             stock_data.append({'name': row[0], 'value': row[1]})
 
+    if request.method == 'POST':
+        stock_selected = request.POST['stock_selected']
+        url = f"https://www.alphavantage.co/query?function=OVERVIEW&symbol={stock_selected}&apikey=U00L0SDG2G52QNZH"
+        r = requests.get(url)
+        info = r.json()
+        context['info'] = info
+        return render(request, 'stocks/search_stocks.html', context)
+
     if request.method == 'GET':
-        return render(request, 'stocks/search_stocks.html', {'stocks': stock_data})
+        return render(request, 'stocks/search_stocks.html', context)
+
 
 
 def delete_stocks(request, id):

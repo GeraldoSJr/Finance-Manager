@@ -6,13 +6,13 @@
         {% include 'partials/_messages.html' %}
         <form action="#" method="post">
             {% csrf_token %}
-            <div class="form-group">
-                <input type="text" class="form-control" id="searchField" placeholder="Search" name="search_query">
-            </div>
             <div class="input-group">
-                <select name="currency" class="custom-select" id="inputGroupSelect04">
+                <select name="stock_selected" class="custom-select">
+                    {% if info.Symbol %}
+                        <option value="{{ stock.name }}">{{ info.Symbol }} - {{ info.Name }}</option>
+                    {% endif %}
                     {% for stock in stocks %}
-                        <option value="{{ stock.name }} - {{ stock.value }}" name="currency">{{ stock.name }} - {{ stock.value }}</option>
+                        <option value="{{ stock.name }}" name="currency">{{ stock.name }} - {{ stock.value }}</option>
                     {% endfor %}
                 </select>
                 <div class="input-group-append">
@@ -20,5 +20,10 @@
                 </div>
             </div>
         </form>
+        <div class="app-table">
+            {% for key, value in info.items %}
+                <li>{{ key }}: {{ value }}</li>
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}
