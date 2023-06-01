@@ -10,6 +10,7 @@ class Stock(models.Model):
     price = models.FloatField()
     date = models.DateField(default=now)
     ticker = models.TextField()
+    previous_times = models.FloatField(default=0)
     owner = models.ForeignKey(to=User, on_delete=models.CASCADE)
 
     def __str__(self):

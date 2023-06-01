@@ -41,7 +41,7 @@ def index(request):
         'page_obj': page_obj,
         'currency': currency
     }
-    return render(request, 'stocks/list_transactions.html', context)
+    return render(request, 'stocks/list_stocks.html', context)
 
 
 def stock_edit(request, id):
@@ -81,9 +81,9 @@ def add_stocks(request):
         return render(request, 'stocks/add_transaction.html')
 
     if request.method == 'POST':
+        ticker = request.POST['ticker']
         amount = request.POST['amount']
         price = request.POST['price']
-        ticker = request.POST['ticker']
         if request.POST['stock_date'] != "":
             date = request.POST['stock_date']
         else:
@@ -91,7 +91,14 @@ def add_stocks(request):
         if not amount:
             messages.error(request, 'Amount is required')
 
-        Stock.objects.create(owner=request.user, amount=amount, date=date, ticker=ticker, price=price)
+        if Stock.objects.filter(owner=request.user, ticker=ticker).exists():
+            stock = Stock.objects.get(owner=request.user, ticker=ticker)
+            stock.amount += float(amount)
+            stock.price = round((stock.price * stock.previous_times + float(price)) / (stock.previous_times + 1))
+            stock.previous_times += 1
+            stock.save()
+        else:
+            Stock.objects.create(owner=request.user, amount=amount, date=date, ticker=ticker, price=price, previous_times=1)
         messages.success(request, 'New stock added')
 
         return redirect('stocks')
