@@ -20,7 +20,6 @@ def index(request):
     if exists:
         user_preferences = UserPreference.objects.get(user=request.user)
     if request.method == 'GET':
-
         return render(request, 'preferences/index.html', {'currencies': currency_data,
                                                           'user_preferences': user_preferences})
     else:
