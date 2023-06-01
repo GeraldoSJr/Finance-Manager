@@ -1,4 +1,24 @@
 {% extends 'base.html' %}
-{% load static %}
 
-
+{% block content %}
+    <div class="container">
+        <h5>Search for Stock Info</h5>
+        {% include 'partials/_messages.html' %}
+        <form action="#" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <input type="text" class="form-control" id="searchField" placeholder="Search" name="search_query">
+            </div>
+            <div class="input-group">
+                <select name="currency" class="custom-select" id="inputGroupSelect04">
+                    {% for stock in stocks %}
+                        <option value="{{ stock.name }} - {{ stock.value }}" name="currency">{{ stock.name }} - {{ stock.value }}</option>
+                    {% endfor %}
+                </select>
+                <div class="input-group-append">
+                    <input class="btn btn-outline-secondary" type="submit" value="Search" />
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

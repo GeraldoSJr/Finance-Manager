@@ -106,15 +106,16 @@ def add_stocks(request):
 
 
 def search_stock_info(request):
-    currency_data = []
-    file_path = os.path.join(settings.BASE_DIR, 'currencies.json')
+    stock_data = []
+    file_path = os.path.join(settings.BASE_DIR, 'stock-info.csv')
 
-    with open(file_path, 'r') as json_file:
-        data = json.load(json_file)
-        for k, v in data.items():
-            currency_data.append({'name': k, 'value': v})
+    with open(file_path, 'r') as file:
+        csv_reader = csv.reader(file)
+        for row in csv_reader:
+            stock_data.append({'name': row[0], 'value': row[1]})
+
     if request.method == 'GET':
-        return render(request, 'preferences/index.html', {'currencies': currency_data})
+        return render(request, 'stocks/search_stocks.html', {'stocks': stock_data})
 
 
 def delete_stocks(request, id):
