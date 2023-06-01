@@ -16,23 +16,13 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Category',
-            fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=255)),
-            ],
-            options={
-                'verbose_name_plural': 'Categories',
-            },
-        ),
-        migrations.CreateModel(
-            name='Expense',
+            name='Stock',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('amount', models.FloatField()),
+                ('price', models.FloatField()),
                 ('date', models.DateField(default=django.utils.timezone.now)),
-                ('description', models.TextField()),
-                ('category', models.CharField(max_length=266)),
+                ('ticker', models.TextField()),
                 ('owner', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),
