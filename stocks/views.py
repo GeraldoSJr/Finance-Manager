@@ -6,7 +6,6 @@ from .models import Stock
 from django.contrib import messages
 from django.utils.timezone import now
 from django.core.paginator import Paginator
-import json
 from django.http import JsonResponse
 from userpreferences.models import UserPreference
 import csv
@@ -15,24 +14,19 @@ import xlwt
 from yahoo_fin.stock_info import *
 
 
-def search_method(request):
+def search_stocks(request):
 
     if request.method == 'POST':
         search_str = json.loads(request.body).get('searchText')
 
-        stocks = Stock.objects.filter(amount__istartswith=search_str, owner=request.user) | \
+        expenses = Stock.objects.filter(amount__istartswith=search_str, owner=request.user) | \
                    Stock.objects.filter(date__istartswith=search_str, owner=request.user) | \
-                   Stock.objects.filter(ticker__icontains=search_str, owner=request.user)
+                   Stock.objects.filter(ticker__icontains=search_str, owner=request.user) | \
+                   Stock.objects.filter(price__icontains=search_str, owner=request.user)
 
-        data = stocks.values()
+        data = expenses.values()
 
         return JsonResponse(list(data), safe=False)
-
-
-
-def search_stocks(request, ticker):
-    return render(request, )
-
 
 
 @login_required(login_url='auth/login/')
