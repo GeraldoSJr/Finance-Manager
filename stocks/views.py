@@ -1,5 +1,3 @@
-import datetime
-
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Stock
@@ -12,6 +10,9 @@ import csv
 from django.http import HttpResponse
 import xlwt
 from yahoo_fin.stock_info import *
+import os
+import json
+from django.conf import settings
 
 
 def search_stocks(request):
@@ -102,6 +103,18 @@ def add_stocks(request):
         messages.success(request, 'New stock added')
 
         return redirect('stocks')
+
+
+def search_stock_info(request):
+    currency_data = []
+    file_path = os.path.join(settings.BASE_DIR, 'currencies.json')
+
+    with open(file_path, 'r') as json_file:
+        data = json.load(json_file)
+        for k, v in data.items():
+            currency_data.append({'name': k, 'value': v})
+    if request.method == 'GET':
+        return render(request, 'preferences/index.html', {'currencies': currency_data})
 
 
 def delete_stocks(request, id):
