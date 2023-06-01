@@ -10,7 +10,7 @@ searchField.addEventListener('keyup', (e) =>{
     const searchValue = e.target.value;
 
     if(searchValue.trim().length > 0){
-        fetch('search-stocks/', {
+        fetch('search-stock/', {
             body: JSON.stringify({ searchText: searchValue }),
             method: 'POST',
         }).then(res=>res.json()).then(data => {
