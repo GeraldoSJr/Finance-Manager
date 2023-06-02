@@ -20,6 +20,7 @@
                 </div>
             </div>
         </form>
+    {% if info.Symbol %}
         <div class="app-table">
             <h5>Stock Information</h5>
             <table class="table table-dark table-hover">
@@ -27,10 +28,6 @@
                     <tr>
                         <th>Symbol</th>
                         <td>{{ info.Symbol }}</td>
-                        <th>Asset Type</th>
-                        <td>{{ info.AssetType }}</td>
-                    </tr>
-                    <tr>
                         <th>Name</th>
                         <td colspan="3">{{ info.Name }}</td>
                     </tr>
@@ -70,5 +67,6 @@
                 </tbody>
             </table>
         </div>
+    {% endif %}
     </div>
 {% endblock %}
