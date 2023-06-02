@@ -22,20 +22,15 @@
             <div class="card-body">
                 <div class="form-group">
                     <label FOR="">Amount</label>
-                    <input type="number" class="form-control form-control-sm" value="{{ values.amount }}" name="amount">
+                    <input type="text" class="form-control form-control-sm" value="{{ values.amount }}" name="amount">
                 </div>
                 <div class="form-group">
-                    <label FOR="">ticker</label>
+                    <label FOR="">Ticker</label>
                     <input type="text" class="form-control form-control-sm" name="ticker" value="{{ values.ticker }}">
                 </div>
                 <div class="form-group">
-                    <label FOR="">Category</label>
-                    <select name="category" class="form-control">
-                        <option name="{{ category }}" selected value="{{ values.category }}">{{ values.category }}</option>
-                        {% for category in categories %}
-                            <option name="{{ category }}">{{ category }}</option>
-                        {% endfor %}
-                    </select>
+                    <label FOR="">Price</label>
+                    <input type="text" class="form-control form-control-sm" value="{{ values.price }}" name="price">
                 </div>
                 <div class="form-group">
                     <label FOR="">Date of Transaction</label>
