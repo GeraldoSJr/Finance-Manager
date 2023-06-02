@@ -7,7 +7,7 @@
         <form action="#" method="post">
             {% csrf_token %}
             <div class="input-group">
-                <select name="stock_selected" class="custom-select">
+                <select name="stock_selected" class="custom-select bg-dark text-white">
                     {% if info.Symbol %}
                         <option value="{{ stock.name }}">{{ info.Symbol }} - {{ info.Name }}</option>
                     {% endif %}
@@ -21,9 +21,54 @@
             </div>
         </form>
         <div class="app-table">
-            {% for key, value in info.items %}
-                <li>{{ key }}: {{ value }}</li>
-            {% endfor %}
+            <h5>Stock Information</h5>
+            <table class="table table-dark table-hover">
+                <tbody>
+                    <tr>
+                        <th>Symbol</th>
+                        <td>{{ info.Symbol }}</td>
+                        <th>Asset Type</th>
+                        <td>{{ info.AssetType }}</td>
+                    </tr>
+                    <tr>
+                        <th>Name</th>
+                        <td colspan="3">{{ info.Name }}</td>
+                    </tr>
+                    <tr>
+                        <th>Description</th>
+                        <td colspan="3">{{ info.Description }}</td>
+                    </tr>
+                    <tr>
+                        <th>CIK</th>
+                        <td>{{ info.CIK }}</td>
+                        <th>Exchange</th>
+                        <td>{{ info.Exchange }}</td>
+                    </tr>
+                    <tr>
+                        <th>Currency</th>
+                        <td>{{ info.Currency }}</td>
+                        <th>Country</th>
+                        <td>{{ info.Country }}</td>
+                    </tr>
+                    <tr>
+                        <th>Sector</th>
+                        <td>{{ info.Sector }}</td>
+                        <th>Industry</th>
+                        <td>{{ info.Industry }}</td>
+                    </tr>
+                    <tr>
+                        <th>Address</th>
+                        <td colspan="3">{{ info.Address }}</td>
+                    </tr>
+                    <tr>
+                        <th>Fiscal Year End</th>
+                        <td>{{ info.FiscalYearEnd }}</td>
+                        <th>Latest Quarter</th>
+                        <td>{{ info.LatestQuarter }}</td>
+                    </tr>
+                    <!-- Add more rows for the remaining data -->
+                </tbody>
+            </table>
         </div>
     </div>
 {% endblock %}
