@@ -1,72 +1,91 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="container">
-        <h5>Search for Stock Info</h5>
-        {% include 'partials/_messages.html' %}
-        <form action="#" method="post">
-            {% csrf_token %}
-            <div class="input-group">
-                <select name="stock_selected" class="custom-select bg-dark text-white">
-                    {% if info.Symbol %}
-                        <option value="{{ stock.name }}">{{ info.Symbol }} - {{ info.Name }}</option>
-                    {% endif %}
-                    {% for stock in stocks %}
-                        <option value="{{ stock.name }}" name="currency">{{ stock.name }} - {{ stock.value }}</option>
-                    {% endfor %}
-                </select>
-                <div class="input-group-append">
-                    <input class="btn btn-outline-secondary" type="submit" value="Search" />
-                </div>
+
+<div class="space-y-6">
+    <div class="card">
+      <div class="card-body flex flex-col p-6">
+        <div class="card-text h-full space-y-6">
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <label for="basicSelect" class="form-label">Pesquise suas Ações</label>
+              {% include 'partials/_messages.html' %}
+              <form action="#" method="post">
+              {% csrf_token %}
+              <select name="stock_selected" id="inputGroupSelect04" class="form-control w-full mt-2">
+                {% if info.Symbol %}
+                  <option value="{{ stock.name }}" class="py-1 inline-block font-Inter font-normal text-sm text-slate-600">{{ info.Symbol }} - {{ info.Name }}</option>
+                {% endif %}
+                <option selected="Selected" disabled="disabled" value="none" class="py-1 inline-block font-Inter font-normal text-sm text-slate-600">Escolha uma opção</option>
+                {% for stock in stocks %}
+                  <option value="{{ stock.name }}" class="py-1 inline-block font-Inter font-normal text-sm text-slate-600">{{ stock.name }} - {{ stock.value }}</option>
+                {% endfor %}
+              </select>
+              <div class="mt-4">
+                <input class="btn inline-flex justify-center btn-outline-dark" type="submit" value="Salvar"/>
+              </div>
             </div>
-        </form>
+          </div>
+        </div>
+      </div>
+    </div>
     {% if info.Symbol %}
-        <div class="app-table">
-            <h5>Stock Information</h5>
+    <div class="app-stock-info">
+        <div class="stock-header">
+            <h2>{{ info.Name }}</h2>
+            <span class="stock-meta">
+                <span class="stock-symbol">{{ info.Symbol }}</span>
+                <span class="stock-price">{{ info.CurrentPrice }}</span>
+            </span>
+        </div>
+    
+        <div class="stock-details">
+            <h5>Informação da empresa</h5>
             <table class="table table-dark table-hover">
                 <tbody>
-                    <tr>
-                        <th>Symbol</th>
-                        <td>{{ info.Symbol }}</td>
-                        <th>Name</th>
-                        <td colspan="3">{{ info.Name }}</td>
-                    </tr>
-                    <tr>
-                        <th>Description</th>
+                    
+                    <tr class="my-4">
+                        <th>Descrição</th>
                         <td colspan="3">{{ info.Description }}</td>
                     </tr>
-                    <tr>
+                    
+                    <tr class="my-4">
                         <th>CIK</th>
-                        <td>{{ info.CIK }}</td>
-                        <th>Exchange</th>
-                        <td>{{ info.Exchange }}</td>
+                        <td colspan="3">{{ info.CIK }}</td>
+                        <th>Bolsa</th>
+                        <td colspan="3">{{ info.Exchange }}</td>
                     </tr>
-                    <tr>
-                        <th>Currency</th>
-                        <td>{{ info.Currency }}</td>
-                        <th>Country</th>
-                        <td>{{ info.Country }}</td>
+                    
+                    <tr class="my-4">
+                        <th>Moeda</th>
+                        <td colspan="3">{{ info.Currency }}</td>
+                        <th>País</th>
+                        <td colspan="3">{{ info.Country }}</td>
                     </tr>
-                    <tr>
-                        <th>Sector</th>
-                        <td>{{ info.Sector }}</td>
-                        <th>Industry</th>
-                        <td>{{ info.Industry }}</td>
+                    
+                    <tr class="mt-4 mb-4">
+                        <th>Setor</th>
+                        <td colspan="3">{{ info.Sector }}</td>
+                        <th>Induútria</th>
+                        <td colspan="3">{{ info.Industry }}</td>
                     </tr>
-                    <tr>
-                        <th>Address</th>
+                    
+                    <tr class="my-4">
+                        <th>Endereço</th>
                         <td colspan="3">{{ info.Address }}</td>
                     </tr>
-                    <tr>
-                        <th>Fiscal Year End</th>
-                        <td>{{ info.FiscalYearEnd }}</td>
-                        <th>Latest Quarter</th>
-                        <td>{{ info.LatestQuarter }}</td>
+
+                    <tr class="my-4">
+                        <th>Fim do ano fiscal</th>
+                        <td colspan="3">{{ info.FiscalYearEnd }}</td>
+                        <th>Último trismestre</th>
+                        <td colspan="3">{{ info.LatestQuarter }}</td>
                     </tr>
                     <!-- Add more rows for the remaining data -->
                 </tbody>
             </table>
         </div>
+    </div>
     {% endif %}
     </div>
 {% endblock %}

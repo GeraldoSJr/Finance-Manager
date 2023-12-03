@@ -1,67 +1,76 @@
-{% load static %}
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <title>GS finance {% block title %} {% endblock %}</title>
-    <!-- Bootstrap core CSS -->
-    <link href="{% static 'css/bootstrap.css'%}" rel="stylesheet" />
-    <link href="{% static 'css/main.css'%}" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+{% load static %}<!DOCTYPE html>
+<!-- Template Name: DashCode - HTML, React, Vue, Tailwind Admin Dashboard Template Author: Codeshaper Website: https://codeshaper.net Contact: support@codeshaperbd.net Like: https://www.facebook.com/Codeshaperbd Purchase: https://themeforest.net/item/dashcode-admin-dashboard-template/42600453 License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project. -->
+<html lang="zxx" dir="ltr" class="light">
 
-    <!-- Custom styles for this template -->
-    <link href="{% static 'css/dashboard.css' %}" rel="stylesheet" />
-  </head>
-  <body>
-    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="{%  url 'expenses' %}">GSFinance</a>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <title>Gs Finance</title>
+  <link rel="icon" type="image/png" href="{% static 'images/logo/favicon.svg' %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- BEGIN: Theme CSS-->
+  <link rel="stylesheet" href="{% static 'css/rt-plugins.css' %}">
+  <link rel="stylesheet" href="{% static 'css/app.css' %}">
+  <!-- End : Theme CSS-->
+  <script src="{% static 'js/settings.js' %}" sync></script>
+</head>
 
-      <ul
-        class="navbar-nav px-3"
-        style="display: flex; flex-direction: row; align-items: center;"
-      >
-        <li class="nav-item text-nowrap">
-          <span class="nav-link" href="">
-          </span>
-        </li>
+<body class=" font-inter dashcode-app" id="body_class">
+  <!-- [if IE]> <p class="browserupgrade"> You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security. </p> <![endif] -->
+  <main class="app-wrapper">
+    <!-- BEGIN: Sidebar -->
+    <!-- BEGIN: Sidebar -->
+    <div class="sidebar-wrapper group">
+      {% include 'partials/_sidebar.html' %}
+    </div>
+    <!-- End: Sidebar -->
+    <!-- End: Sidebar -->
+    <!-- BEGIN: Settings -->
 
-        <li class="nav-item text-nowrap mt-3 ml-2">
-          <form action="{% url 'logout' %}" method="POST">
-            {% csrf_token %}
-            <input
-              class="text text-capitalize btn-dark btn-outline-light"
-              type="submit"
-              value="Sign out"
-            />
-          </form>
-        </li>
-      </ul>
-    </nav>
-
-    <div class="container-fluid">
-      <div class="row">
-        {% include 'partials/_sidebar.html' %}
-
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4" style="padding-top: 75px">
-          {% block content %} {% endblock %}
-        </main>
+    <div class="flex flex-col justify-between min-h-screen">
+      <div>
+        {% include 'partials/_header.html' %}
       </div>
     </div>
-    <script
-      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-      crossorigin="anonymous"
-    ></script>
-    <script>
-      window.jQuery ||
-        document.write(
-          '<script src="/docs/4.4/static/js/vendor/jquery.slim.min.js"><\/script>'
-        );
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
-     <script src="{% static 'js/main.js' %}"></script>
-  </body>
-</html>
+
+        <!-- BEGIN: Search Modal -->
+        <div class="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
+          <div class="modal-dialog relative w-auto pointer-events-none top-1/4">
+            <div class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white dark:bg-slate-900 bg-clip-padding rounded-md outline-none text-current">
+              <form>
+                <div class="relative">
+                  <input type="text" class="form-control !py-3 !pr-12" placeholder="Search">
+                  <button class="absolute right-0 top-1/2 -translate-y-1/2 w-9 h-full border-l text-xl border-l-slate-200 dark:border-l-slate-600 dark:text-slate-300 flex items-center justify-center">
+                    <iconify-icon icon="heroicons-solid:search"></iconify-icon>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <!-- END: Search Modal -->
+        <!-- END: Header -->
+        <!-- END: Header -->
+        <div class="content-wrapper transition-all duration-150 ltr:ml-[248px] rtl:mr-[248px]" id="content_wrapper">
+          <div class="page-content">
+            <div class="transition-all duration-150 container-fluid" id="page_layout">
+              <div id="content_layout">
+                {% block content %} {% endblock %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% include 'partials/_footer.html' %}
+  </div>
+</main>
+<!-- scripts -->
+<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+<script src="{% static 'js/rt-plugins.js' %}"></script>
+<script src="{% static 'js/app.js' %}"></script>
+</body>
+</html>  
