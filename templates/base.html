@@ -58,7 +58,9 @@
           <div class="page-content">
             <div class="transition-all duration-150 container-fluid" id="page_layout">
               <div id="content_layout">
-                {% block content %} {% endblock %}
+                <main>
+                  {% block content %} {% endblock %}
+                </main>
               </div>
             </div>
           </div>
@@ -72,5 +74,24 @@
 <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
 <script src="{% static 'js/rt-plugins.js' %}"></script>
 <script src="{% static 'js/app.js' %}"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap5.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+<script>
+    new DataTable('#example', {
+      responsive: true,
+      language: {
+          url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/pt-BR.json',
+      },
+      "lengthChange": false,
+      pagingType: 'numbers',
+      initComplete: function ()
+      {
+          oculta_modal_carregando ();
+      },
+    });
+</script>
 </body>
 </html>  
