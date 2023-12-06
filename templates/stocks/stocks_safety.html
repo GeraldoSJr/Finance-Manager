@@ -2,7 +2,6 @@
 {% load static %}
 
 <form action="{% url 'add-transaction' %}" method="post">
-    {% include 'partials/_messages.html' %}
     {% csrf_token %}
     <div class="card-body">
         <div class="form-group">

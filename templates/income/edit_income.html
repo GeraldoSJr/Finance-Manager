@@ -17,7 +17,6 @@
         </div>
     <div class="card">
         <form action="{% url 'income-edit' income.id %}" method="post">
-            {% include 'partials/_messages.html' %}
             {% csrf_token %}
             <div class="card-body">
                 <div class="form-group">

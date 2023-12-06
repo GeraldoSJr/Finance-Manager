@@ -59,6 +59,7 @@
             <div class="transition-all duration-150 container-fluid" id="page_layout">
               <div id="content_layout">
                 <main>
+                  {% include 'partials/_messages.html' %}
                   {% block content %} {% endblock %}
                 </main>
               </div>
@@ -92,6 +93,11 @@
           oculta_modal_carregando ();
       },
     });
+</script>
+<script>
+  function redirectTo(url) {
+      window.location.href = url;
+  }
 </script>
 </body>
 </html>  
