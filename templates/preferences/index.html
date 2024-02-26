@@ -9,19 +9,20 @@
           <div>
             <label for="basicSelect" class="form-label">Moeda de preferência</label>
             <form action="{% url 'preferences' %}" method="post">
-            {% csrf_token %}
-            <select name="currency" id="inputGroupSelect04" class="form-control w-full mt-2">
-              {% if user_preferences.currency %}
-                <option name="currency" value="{{ user_preferences.currency }}" class="py-1 inline-block font-Inter font-normal text-sm text-slate-600">{{ user_preferences.currency }}</option>
-              {% endif %}
-              <option selected="Selected" disabled="disabled" value="none" class="py-1 inline-block font-Inter font-normal text-sm text-slate-600">Escolha uma opção</option>
-              {% for currency in currencies %}
-                <option name="currency" value="{{ currency.name }} - {{ currency.value }}" class="py-1 inline-block font-Inter font-normal text-sm text-slate-600">{{ currency.name }} - {{ currency.value }}</option>
-              {% endfor %}
-            </select>
-            <div class="mt-4">
-              <input class="btn inline-flex justify-center btn-outline-dark" type="submit" value="Salvar"/>
-            </div>
+              {% csrf_token %}
+              <select name="currency" id="inputGroupSelect04" class="form-control w-full mt-2">
+                {% if user_preferences.currency %}
+                  <option name="currency" value="{{ user_preferences.currency }}" class="py-1 inline-block font-Inter font-normal text-sm text-slate-600">{{ user_preferences.currency }}</option>
+                {% endif %}
+                <option selected="Selected" disabled="disabled" value="none" class="py-1 inline-block font-Inter font-normal text-sm text-slate-600">Escolha uma opção</option>
+                {% for currency in currencies %}
+                  <option name="currency" value="{{ currency.name }} - {{ currency.value }}" class="py-1 inline-block font-Inter font-normal text-sm text-slate-600">{{ currency.name }} - {{ currency.value }}</option>
+                {% endfor %}
+              </select>
+              <div class="mt-4">
+                <input class="btn inline-flex justify-center btn-outline-dark" type="submit" value="Salvar"/>
+              </div>
+            </form>
           </div>
         </div>
       </div>
